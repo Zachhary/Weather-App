@@ -1,5 +1,5 @@
 function getWeather() {
-    const apiKey = 'YOUR API KEY HERE';
+    const apiKey = 'API KEY HERE';
     const city = document.getElementById('city').value;
 
     if (!city) {
@@ -46,13 +46,13 @@ function displayWeather(data) {
         weatherInfoDiv.innerHTML = `<p>${data.message}</p>`;
     } else {
         const cityName = data.name;
-        const temperature = celsius * 9/5 + 32; // Convert to Fahrenheit
+        const temperature = Math.round(data.main.temp - 273.15); // Convert to Celsius
         const description = data.weather[0].description;
         const iconCode = data.weather[0].icon;
         const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
 
         const temperatureHTML = `
-            <p>${temperature}°F</p>
+            <p>${temperature}°C</p>
         `;
 
         const weatherHtml = `
@@ -77,7 +77,7 @@ function displayHourlyForecast(hourlyData) {
     next24Hours.forEach(item => {
         const dateTime = new Date(item.dt * 1000); // Convert timestamp to milliseconds
         const hour = dateTime.getHours();
-        const temperature = celsius * 9/5 + 32; // Convert to Fahrenheit
+        const temperature = Math.round(item.main.temp - 273.15); // Convert to Celsius
         const iconCode = item.weather[0].icon;
         const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
